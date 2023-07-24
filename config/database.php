@@ -3,7 +3,7 @@ include_once 'config.php';
     class Database {
 
         private $host  = "localhost";
-        private $database_name = "sg_crewAssignmentMgmt";
+        private $database_name = "iq_supplier";
 //        private $database_name = "dbzdwexbkd5orw";
         private $username = "ashams001";
 //        private $username = "umvc1ebnftglp";
