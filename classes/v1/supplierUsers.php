@@ -38,7 +38,7 @@ class SupplierUsers{
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute([$this->user_name, $this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic,$this->created_at]);
 
-        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".";
+        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id";
         $stmt = $this->conn->prepare($sqlQuery1);
         $stmt->execute();
         $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -73,7 +73,7 @@ class SupplierUsers{
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute([$this->user_name,$this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic]);
 
-        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".";
+        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id DESC LIMIT 0,1";
         $stmt = $this->conn->prepare($sqlQuery1);
         $stmt->execute();
         $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -109,7 +109,7 @@ class SupplierUsers{
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute([$this->delete_check]);
 
-        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".";
+        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id DESC LIMIT 0,1";
         $stmt = $this->conn->prepare($sqlQuery1);
         $stmt->execute();
         $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
