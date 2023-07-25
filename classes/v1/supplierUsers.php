@@ -28,7 +28,7 @@ class SupplierUsers{
     }
 	
 	/**
-	 * @return $this|null
+	 create supplier User
 	 */
     public function createSupplierUsers()
     {
@@ -38,33 +38,7 @@ class SupplierUsers{
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute([$this->user_name, $this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic,$this->created_at]);
 
-        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".id DESC LIMIT 0,1";
-        $stmt = $this->conn->prepare($sqlQuery1);
-        $stmt->execute();
-        $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($dataRow == null || empty($dataRow)) {
-            return null;
-        } else {
-            $this->sup_id = $dataRow['sup_id'];
-            $this->delete_check = $dataRow['delete_check'];
-            return $this;
-        }
-
-    }
-	
-	/**
-	 * @return $this|null
-	 */
-    public function updateSupplierUser()
-    {
-
-        $sqlQuery = "update " . $this->db_table . " SET user_name = ? ,password = ? ,first_name = ? ,last_name = ? ,role = ? ,email = ? ,mobile = ? ,address = ? ,profile_pic = ? ,updated_at = ? where sup_id = '$this->sup_id'";
-
-        $stmt = $this->conn->prepare($sqlQuery);
-        $stmt->execute([$this->dependant_parts, $this->updated_at]);
-
-        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".id DESC LIMIT 0,1";
+        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".";
         $stmt = $this->conn->prepare($sqlQuery1);
         $stmt->execute();
         $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -81,32 +55,43 @@ class SupplierUsers{
             $this->email = $dataRow['email'];
             $this->mobile = $dataRow['mobile'];
             $this->address = $dataRow['address'];
-            $this->updated_at = $dataRow['updated_at'];
+            $this->profile_pic = $dataRow['profile_pic'];
+            $this->created_at = $dataRow['created_at'];
             return $this;
         }
 
     }
 	
 	/**
-	 * @return $this|null
+   update supplier User
 	 */
-    public function deleteSupplierUserById()
+    public function updateSupplierUser()
     {
 
-        $sqlQuery = "delete from " . $this->db_table . " where sup_id = ?";
+        $sqlQuery = "update " . $this->db_table . " SET user_name = ? ,password = ? ,first_name = ? ,last_name = ? ,role = ? ,email = ? ,mobile = ? ,address = ? ,profile_pic = ? ,updated_at = ? where sup_id = '$this->sup_id'";
 
         $stmt = $this->conn->prepare($sqlQuery);
-        $stmt->execute([$this->delete_check]);
+        $stmt->execute([$this->user_name,$this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic]);
 
-        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id DESC LIMIT 0,1";
+        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".";
         $stmt = $this->conn->prepare($sqlQuery1);
         $stmt->execute();
         $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($dataRow == null || empty($dataRow)) {
             return null;
-        } else {
+        } else
+        {
             $this->sup_id = $dataRow['sup_id'];
+            $this->user_name = $dataRow['user_name'];
+            $this->password = $dataRow['password'];
+            $this->first_name = $dataRow['first_name'];
+            $this->last_name = $dataRow['last_name'];
+            $this->role = $dataRow['role'];
+            $this->email = $dataRow['email'];
+            $this->mobile = $dataRow['mobile'];
+            $this->address = $dataRow['address'];
+            $this->profile_pic = $dataRow['profile_pic'];
 
             return $this;
         }
@@ -114,13 +99,15 @@ class SupplierUsers{
     }
 	
 	/**
-	 * @return $this|null
+   delete supplier User
 	 */
-    public function setIsDelUser()
+    public function deleteSupplierUserById()
     {
+
         $sqlQuery = "update " . $this->db_table . " SET is_deleted = 1  where sup_id = ?";
+
         $stmt = $this->conn->prepare($sqlQuery);
-        $stmt->execute([$this->sup_id]);
+        $stmt->execute([$this->delete_check]);
 
         $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".";
         $stmt = $this->conn->prepare($sqlQuery1);
@@ -135,4 +122,6 @@ class SupplierUsers{
         }
 
     }
+	
+
 }
