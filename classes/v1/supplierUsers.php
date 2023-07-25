@@ -1,5 +1,5 @@
 <?php
-class CreateUsers{
+class SupplierUsers{
 
     // Connection
     private $conn;
@@ -26,8 +26,11 @@ class CreateUsers{
     {
         $this->conn = $db;
     }
-
-    public function getCreateUsers()
+	
+	/**
+	 * @return $this|null
+	 */
+    public function createSupplierUsers()
     {
 
         $sqlQuery = "insert into " . $this->db_table . "(user_name,password,first_name,last_name,role,email,mobile,address,profile_pic,created_at) values ( ?,?,?,?,?,?,?,?,?,?)";
@@ -49,8 +52,11 @@ class CreateUsers{
         }
 
     }
-
-    public function getEditCreateUser()
+	
+	/**
+	 * @return $this|null
+	 */
+    public function updateSupplierUser()
     {
 
         $sqlQuery = "update " . $this->db_table . " SET user_name = ? ,password = ? ,first_name = ? ,last_name = ? ,role = ? ,email = ? ,mobile = ? ,address = ? ,profile_pic = ? ,updated_at = ? where sup_id = '$this->sup_id'";
@@ -80,8 +86,11 @@ class CreateUsers{
         }
 
     }
-
-    public function getdeleteCreateUser()
+	
+	/**
+	 * @return $this|null
+	 */
+    public function deleteSupplierUserById()
     {
 
         $sqlQuery = "delete from " . $this->db_table . " where sup_id = ?";
@@ -103,8 +112,11 @@ class CreateUsers{
         }
 
     }
-
-    public function getdelUser()
+	
+	/**
+	 * @return $this|null
+	 */
+    public function setIsDelUser()
     {
         $sqlQuery = "update " . $this->db_table . " SET is_deleted = 1  where sup_id = ?";
         $stmt = $this->conn->prepare($sqlQuery);
@@ -123,8 +135,4 @@ class CreateUsers{
         }
 
     }
-
-
-
-
 }
