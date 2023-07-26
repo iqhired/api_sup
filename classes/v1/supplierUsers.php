@@ -18,6 +18,8 @@ class SupplierUsers{
     public $address;
     public $profile_pic;
     public $created_at;
+    public $delete_check;
+
 
 
 
@@ -38,7 +40,7 @@ class SupplierUsers{
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute([$this->user_name, $this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic,$this->created_at]);
 
-        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id";
+        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id DESC LIMIT 0,1";
         $stmt = $this->conn->prepare($sqlQuery1);
         $stmt->execute();
         $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -68,7 +70,7 @@ class SupplierUsers{
     public function updateSupplierUser()
     {
 
-        $sqlQuery = "update " . $this->db_table . " SET user_name = ? ,password = ? ,first_name = ? ,last_name = ? ,role = ? ,email = ? ,mobile = ? ,address = ? ,profile_pic = ? ,updated_at = ? where sup_id = '$this->sup_id'";
+        $sqlQuery = "update " . $this->db_table . " SET user_name = ? ,password = ? ,first_name = ? ,last_name = ? ,role = ? ,email = ? ,mobile = ? ,address = ? ,profile_pic = ?  where sup_id = '$this->sup_id'";
 
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute([$this->user_name,$this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic]);
@@ -83,16 +85,15 @@ class SupplierUsers{
         } else
         {
             $this->sup_id = $dataRow['sup_id'];
-            $this->user_name = $dataRow['user_name'];
-            $this->password = $dataRow['password'];
-            $this->first_name = $dataRow['first_name'];
-            $this->last_name = $dataRow['last_name'];
-            $this->role = $dataRow['role'];
-            $this->email = $dataRow['email'];
-            $this->mobile = $dataRow['mobile'];
-            $this->address = $dataRow['address'];
-            $this->profile_pic = $dataRow['profile_pic'];
-
+            $this->user_name = $dataRow['edit_user_name'];
+            $this->password = $dataRow['edit_password'];
+            $this->first_name = $dataRow['edit_first_name'];
+            $this->last_name = $dataRow['edit_last_name'];
+            $this->role = $dataRow['edit_role'];
+            $this->email = $dataRow['edit_email'];
+            $this->mobile = $dataRow['edit_mobile'];
+            $this->address = $dataRow['edit_address'];
+            $this->profile_pic = $dataRow['edit_profile_pic'];
             return $this;
         }
 
@@ -104,7 +105,7 @@ class SupplierUsers{
     public function deleteSupplierUserById()
     {
 
-        $sqlQuery = "update " . $this->db_table . " SET is_deleted = 1  where sup_id = ?";
+        $sqlQuery = "delete from " . $this->db_table . " where sup_id = ?";
 
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute([$this->delete_check]);
@@ -118,6 +119,8 @@ class SupplierUsers{
             return null;
         } else {
             $this->sup_id = $dataRow['sup_id'];
+            $this->user_name = $dataRow['user_name'];
+
             return $this;
         }
 
