@@ -1,6 +1,7 @@
 <?php
 require "../../vendor/autoload.php";
-use Firebase\JWT\JWT;
+	use Firebase\JWT\JWT;
+	use Firebase\JWT\Key;
 
 class JwtHelper {
 
@@ -9,10 +10,10 @@ class JwtHelper {
 		$secretkey = "SupportPassHTSSgmmi";
 		$payload = array(
 			"author" => "Saargummi to HTS",
-			"exp" => time()+1000
+			"exp" => time()+10000000
 		);
 		try{
-			$jwt = JWT::encode($payload, $secretkey);
+			$jwt = JWT::encode($payload, $secretkey , 'HS256');
 		}catch (UnexpectedValueException $e) {
 			echo $e->getMessage();
 		}
