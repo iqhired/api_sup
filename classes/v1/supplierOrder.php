@@ -27,11 +27,20 @@ class supplierOrder{
 
     public function updateActiveOrder()
     {
+        if(empty($this->order_status_id = 2 ) && ($this->order_status_id = 3 ) )  {
 
-        $sqlQuery = "update " . $this->db_table . " SET order_name = ?  where order_id = '$this->order_id'";
+            $sqlQuery = "update " . $this->db_table . " SET order_status_id = ?  where order_id = '$this->order_id'";
+
+            $stmt = $this->conn->prepare($sqlQuery);
+            $stmt->execute([$this->order_status_id]);
+        }
+        elseif(empty($this->order_status_id = 4) ){
+        $sqlQuery = "update " . $this->db_table . " SET shipment_details = ?  where order_id = '$this->order_id'";
 
         $stmt = $this->conn->prepare($sqlQuery);
-        $stmt->execute([$this->order_name]);
+        $stmt->execute([$this->order_status_id]);
+
+        }
 
         $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".order_id DESC LIMIT 0,1";
         $stmt = $this->conn->prepare($sqlQuery1);
@@ -43,12 +52,9 @@ class supplierOrder{
         } else
         {
             $this->order_id = $dataRow['order_id'];
-            $this->sup_order_id = $dataRow['sup_order_id'];
-            $this->c_id = $dataRow['c_id'];
-            $this->order_name = $dataRow['order_name'];
-            $this->order_desc = $_POST['order_desc'];
-            $this->order_active = $_POST['order_active'];
-            $this->shipment_details = $_POST['shipment_details'];
+            $this->order_status_id = $dataRow['order_status_id'];
+
+
             return $this;
         }
 
