@@ -1,5 +1,5 @@
 <?php
-class activeOrder{
+class supplierOrder{
 
     // Connection
     private $conn;
