@@ -24,7 +24,7 @@ if($jwt){
         $database = new Database();
         $db = $database->getConnection();
 
-        $item = new activeOrder($db);
+        $item = new supplierOrder($db);
 
         $data = json_decode(file_get_contents("php://input"));
         $item->order_id = $_POST['order_id'];
