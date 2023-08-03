@@ -1,5 +1,7 @@
 <?php
+
 require "../../../vendor/autoload.php";
+
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 
@@ -11,42 +13,42 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-include_once '../../../classes/v1/supplierOrder.php';
+include_once '../../../classes/v1/Active_Order.php';
 
 $jwt = $_SERVER['HTTP_ACCESS_TOKEN'];
-if($jwt){
+if ($jwt) {
     try {
 
-        $decoded = JWT::decode($jwt,  new Key($secretkey, 'HS256'));
+        $decoded = JWT::decode($jwt, new Key($secretkey, 'HS256'));
 
         // Access is granted. Add code of the operation here
 
         $database = new Database();
         $db = $database->getConnection();
 
-        $item = new supplierOrder($db);
+        $item = new Active_Order($db);
 
         $data = json_decode(file_get_contents("php://input"));
-        $item->order_id = $_POST['order_id'];
-        $item->sup_order_id = $_POST['sup_order_id'];
-        $item->c_id = $_POST['c_id'];
-        $item->order_name = $_POST['order_name'];
-        $item->order_desc = $_POST['order_desc'];
-        $item->order_active = $_POST['order_active'];
-        $item->shipment_details = $_POST['shipment_details'];
+
+        $item->unique_ord_id = $_POST['sup_order_id'];
+        $item->c_id = $_POST["c_id"];
+        $item->order_name = $_POST["order_name"];
+        $item->order_desc = $_POST["order_desc"];
+        $item->chicagotime = $_POST["created_on"];
+        $item->created_by = $_POST["created_by"];
 
 
-        $sgPos = $item->updateActiveOrder();
+        $sgOrder = $item->getOrder();
 
-        if($sgPos != null){
+        if ($sgOrder != null) {
             http_response_code(200);
-            echo json_encode(array("STATUS" => "Success" , "order_id" => $sgPos));
-        } else{
+            echo json_encode(array("STATUS" => "Success", "sup_order_id" => $sgOrder));
+        } else {
             http_response_code(401);
-            echo json_encode(array("message" => "Order Update failed"));
+            echo json_encode(array("message" => "Order create Failed. Please retry."));
         }
 
-    }catch (Exception $e){
+    } catch (Exception $e) {
 
         http_response_code(401);
 
@@ -57,4 +59,4 @@ if($jwt){
     }
 
 }
-?>
+
