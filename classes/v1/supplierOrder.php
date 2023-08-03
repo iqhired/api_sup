@@ -53,8 +53,6 @@ class supplierOrder{
         {
             $this->order_id = $dataRow['order_id'];
             $this->order_status_id = $dataRow['order_status_id'];
-
-
             return $this;
         }
 
