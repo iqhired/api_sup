@@ -30,22 +30,19 @@ if ($jwt) {
 
         $data = json_decode(file_get_contents("php://input"));
 
-        $item->unique_ord_id = $_POST['sup_order_id'];
-        $item->c_id = $_POST["c_id"];
-        $item->order_name = $_POST["order_name"];
-        $item->order_desc = $_POST["order_desc"];
-        $item->chicagotime = $_POST["created_on"];
-        $item->created_by = $_POST["created_by"];
+        $item->order_id = $_POST['order_id'];
+        $item->order_st_id = $_POST['order_status_id'];
+        $item->modified_on = $_POST['modified_on'];
 
 
-        $sgOrder = $item->getOrder();
+        $sgEditOrder = $item->getEditOrder();
 
-        if ($sgOrder != null) {
+        if ($sgEditOrder != null) {
             http_response_code(200);
-            echo json_encode(array("STATUS" => "Success", "sup_order_id" => $sgOrder));
+            echo json_encode(array("STATUS" => "Success", "sup_order_id" => $sgEditOrder));
         } else {
             http_response_code(401);
-            echo json_encode(array("message" => "Order create Failed. Please retry."));
+            echo json_encode(array("message" => "Order edit Failed. Please retry."));
         }
 
 

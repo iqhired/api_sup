@@ -1,5 +1,6 @@
 <?php
 
+
 require "../../../vendor/autoload.php";
 
 use \Firebase\JWT\JWT;
@@ -30,24 +31,18 @@ if ($jwt) {
 
         $data = json_decode(file_get_contents("php://input"));
 
-        $item->unique_ord_id = $_POST['sup_order_id'];
-        $item->c_id = $_POST["c_id"];
-        $item->order_name = $_POST["order_name"];
-        $item->order_desc = $_POST["order_desc"];
-        $item->chicagotime = $_POST["created_on"];
-        $item->created_by = $_POST["created_by"];
+        $item->delete_check = $_POST['delete_check'];
 
 
-        $sgOrder = $item->getOrder();
+        $sgPart = $item->getdelOrder();
 
-        if ($sgOrder != null) {
+        if ($sgPart != null) {
             http_response_code(200);
-            echo json_encode(array("STATUS" => "Success", "sup_order_id" => $sgOrder));
+            echo json_encode(array("STATUS" => "Success", "id" => $sgPart));
         } else {
             http_response_code(401);
-            echo json_encode(array("message" => "Order create Failed. Please retry."));
+            echo json_encode(array("message" => "Order delete failed"));
         }
-
 
     } catch (Exception $e) {
 
