@@ -58,7 +58,7 @@ class Supplier_Order
             $stmt->execute([0, $this->order_st_id, $this->modified_on,$this->order_id]);
 
         } else {
-            $sqlQuery = "update " . $this->db_table . "SET order_status_id = ? , where order_id = ?";
+            $sqlQuery = "update " . $this->db_table . " SET order_status_id = ?  where order_id = ?";
 
             $stmt = $this->conn->prepare($sqlQuery);
             $stmt->execute([$this->order_st_id,$this->order_id]);
