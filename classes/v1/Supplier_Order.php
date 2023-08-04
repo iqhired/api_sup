@@ -15,6 +15,7 @@ class Supplier_Order
     public $modified_on;
     public $delete_check;
     public $is_deleted;
+    public $modified_by;
 
 
     public function __construct($db)
@@ -52,17 +53,32 @@ class Supplier_Order
     {
 
         if ($this->order_st_id == 6) {
-            $sqlQuery = "update " . $this->db_table . " SET order_active = ? , order_status_id = ? , modified_on = ?  where order_id = ?";
+            $sqlQuery = "update " . $this->db_table . " SET order_active = ? , order_status_id = ? , pn_modified_on = ?,pn_modified_by = ? where order_id = ?";
 
             $stmt = $this->conn->prepare($sqlQuery);
-            $stmt->execute([0, $this->order_st_id, $this->modified_on,$this->order_id]);
+            $stmt->execute([0, $this->order_st_id, $this->modified_on,$this->modified_by,$this->order_id]);
+
 
         } else {
-            $sqlQuery = "update " . $this->db_table . " SET order_status_id = ?  where order_id = ?";
+            $sqlQuery = "update " . $this->db_table . " SET order_status_id = ? , pn_modified_on = ? ,pn_modified_by = ?  where order_id = ?";
 
             $stmt = $this->conn->prepare($sqlQuery);
-            $stmt->execute([$this->order_st_id,$this->order_id]);
+            $stmt->execute([$this->order_st_id,$this->modified_on,$this->modified_by,$this->order_id]);
 
+        }
+        $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".order_id DESC LIMIT 0,1";
+        $stmt = $this->conn->prepare($sqlQuery1);
+        $stmt->execute();
+        $dataRow = $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($dataRow == null || empty($dataRow)) {
+            return null;
+        } else {
+            $this->order_id = $dataRow['order_id'];
+            $this->order_st_id = $dataRow['order_status_id'];
+            $this->modified_on = $dataRow['pn_modified_on'];
+            $this->modified_by = $dataRow['pn_modified_by'];
+            return $this;
         }
     }
 

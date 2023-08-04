@@ -32,14 +32,15 @@ if ($jwt) {
 
         $item->order_id = $_POST['order_id'];
         $item->order_st_id = $_POST['order_status_id'];
-        $item->modified_on = $_POST['modified_on'];
+        $item->modified_on = $_POST['pn_modified_on'];
+        $item->modified_by = $_POST['pn_modified_by'];
 
 
         $sgEditOrder = $item->getEditOrder();
 
         if ($sgEditOrder != null) {
             http_response_code(200);
-            echo json_encode(array("STATUS" => "Success", "sup_order_id" => $sgEditOrder));
+            echo json_encode(array("STATUS" => "Success", "order_st_id" => $sgEditOrder));
         } else {
             http_response_code(401);
             echo json_encode(array("message" => "Order edit Failed. Please retry."));
