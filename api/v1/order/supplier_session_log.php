@@ -32,6 +32,7 @@ if ($jwt) {
 
         $item->unique_ord_id = $_POST['order_id'];
         $item->c_id = $_POST['c_id'];
+        $item->order_status_id = $_POST['order_status_id'];
         $item->chicagotime = $_POST["created_on"];
         $item->created_by = $_POST["created_by"];
 

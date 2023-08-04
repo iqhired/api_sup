@@ -32,6 +32,7 @@ if ($jwt) {
 
         $item->order_id = $_POST['order_id'];
         $item->order_st_id = $_POST['order_status_id'];
+        $item->c_id = $_POST['c_id'];
         $item->modified_on = $_POST['pn_modified_on'];
         $item->modified_by = $_POST['pn_modified_by'];
 
