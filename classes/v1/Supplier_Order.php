@@ -12,6 +12,7 @@ class Supplier_Order
     public $chicagotime;
     public $created_by;
     public $order_st_id;
+    public $order_reason;
     public $modified_on;
     public $delete_check;
     public $is_deleted;
@@ -60,10 +61,10 @@ class Supplier_Order
 
 
         } else {
-            $sqlQuery = "update " . $this->db_table . " SET order_status_id = ? , pn_modified_on = ? ,pn_modified_by = ?  where order_id = ?";
+            $sqlQuery = "update " . $this->db_table . " SET order_status_id = ? ,order_reason = ? , pn_modified_on = ? ,pn_modified_by = ?  where order_id = ?";
 
             $stmt = $this->conn->prepare($sqlQuery);
-            $stmt->execute([$this->order_st_id,$this->modified_on,$this->modified_by,$this->order_id]);
+            $stmt->execute([$this->order_st_id,$this->order_reason,$this->modified_on,$this->modified_by,$this->order_id]);
 
         }
         $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".order_id DESC LIMIT 0,1";
@@ -76,6 +77,7 @@ class Supplier_Order
         } else {
             $this->order_id = $dataRow['order_id'];
             $this->order_st_id = $dataRow['order_status_id'];
+            $this->order_reason = $dataRow['order_reason'];
             $this->modified_on = $dataRow['pn_modified_on'];
             $this->modified_by = $dataRow['pn_modified_by'];
             return $this;
