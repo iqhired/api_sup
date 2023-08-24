@@ -5,7 +5,7 @@ class SupplierUsers{
     private $conn;
 
     // Table
-    private $db_table = "sup_acc_users";
+    private $db_table = "sup_account_users";
     // Columns
     public $sup_id;
     public $user_name;
