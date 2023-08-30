@@ -29,16 +29,14 @@ if($jwt){
         $data = json_decode(file_get_contents("php://input"));
         $item->sup_id = $_POST['sup_id'];
         $item->user_name = $_POST['user_name'];
-        $item->password = $_POST['password'];
-        $item->first_name = $_POST['first_name'];
-        $item->last_name = $_POST['last_name'];
+        $item->u_password = $_POST['u_password'];
+        $item->u_firstname = $_POST['u_firstname'];
+        $item->u_lastname = $_POST['u_lastname'];
         $item->role = $_POST['role'];
-        $item->email = $_POST['email'];
-        $item->mobile = $_POST['mobile'];
-        $item->address = $_POST['address'];
-        $item->profile_pic = $_POST['profile_pic'];
-        $item->created_at = $_POST['created_at'];
-
+        $item->u_email = $_POST['u_email'];
+        $item->u_mobile = $_POST['u_mobile'];
+        $item->u_address = $_POST['u_address'];
+        $item->u_profile_pic = $_POST['u_profile_pic'];
 
         $sgPos = $item->createSupplierUsers();
 

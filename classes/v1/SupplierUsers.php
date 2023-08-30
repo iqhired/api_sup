@@ -8,16 +8,18 @@ class SupplierUsers{
     private $db_table = "sup_account_users";
     // Columns
     public $sup_id;
+    public $c_id;
     public $user_name;
-    public $password;
-    public $first_name;
-    public $last_name;
     public $role;
-    public $email;
-    public $mobile;
-    public $address;
-    public $profile_pic;
-    public $created_at;
+    public $u_email;
+    public $u_password;
+    public $u_firstname;
+    public $u_lastname;
+    public $u_mobile;
+    public $u_address;
+    public $u_profile_pic;
+    public $u_type;
+    public $u_status;
     public $delete_check;
 
 
@@ -35,10 +37,10 @@ class SupplierUsers{
     public function createSupplierUsers()
     {
 
-        $sqlQuery = "insert into " . $this->db_table . "(user_name,password,first_name,last_name,role,email,mobile,address,profile_pic,created_at) values ( ?,?,?,?,?,?,?,?,?,?)";
+        $sqlQuery = "insert into " . $this->db_table . "(user_name,u_password,u_firstname,u_lastname,role,u_email,u_mobile,u_address,u_profile_pic) values (?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->conn->prepare($sqlQuery);
-        $stmt->execute([$this->user_name, $this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic,$this->created_at]);
+        $stmt->execute([$this->user_name, $this->u_password,$this->u_firstname,$this->u_lastname,$this->role,$this->u_email,$this->u_mobile,$this->u_address,$this->u_profile_pic]);
 
         $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id DESC LIMIT 0,1";
         $stmt = $this->conn->prepare($sqlQuery1);
@@ -49,16 +51,18 @@ class SupplierUsers{
             return null;
         } else {
             $this->sup_id = $dataRow['sup_id'];
+            $this->c_id = $dataRow['c_id'];
             $this->user_name = $dataRow['user_name'];
-            $this->password = $dataRow['password'];
-            $this->first_name = $dataRow['first_name'];
-            $this->last_name = $dataRow['last_name'];
             $this->role = $dataRow['role'];
-            $this->email = $dataRow['email'];
-            $this->mobile = $dataRow['mobile'];
-            $this->address = $dataRow['address'];
-            $this->profile_pic = $dataRow['profile_pic'];
-            $this->created_at = $dataRow['created_at'];
+            $this->u_email = $dataRow['u_email'];
+            $this->u_password = $dataRow['u_password'];
+            $this->u_firstname = $dataRow['u_firstname'];
+            $this->u_lastname = $dataRow['u_lastname'];
+            $this->u_mobile = $dataRow['u_mobile'];
+            $this->u_address = $dataRow['u_address'];
+            $this->u_profile_pic = $dataRow['u_profile_pic'];
+            $this->u_type = $dataRow['u_type'];
+            $this->u_status = $dataRow['u_status'];
             return $this;
         }
 
@@ -70,10 +74,10 @@ class SupplierUsers{
     public function updateSupplierUser()
     {
 
-        $sqlQuery = "update " . $this->db_table . " SET user_name = ? ,password = ? ,first_name = ? ,last_name = ? ,role = ? ,email = ? ,mobile = ? ,address = ? ,profile_pic = ?  where sup_id = '$this->sup_id'";
+        $sqlQuery = "update " . $this->db_table . " SET user_name = ? ,u_password = ? ,u_firstname = ? ,u_lastname = ? ,role = ? ,u_email = ? ,u_mobile = ? ,u_address = ? ,u_profile_pic = ?  where sup_id = '$this->sup_id'";
 
         $stmt = $this->conn->prepare($sqlQuery);
-        $stmt->execute([$this->user_name,$this->password,$this->first_name,$this->last_name,$this->role,$this->email,$this->mobile,$this->address,$this->profile_pic]);
+        $stmt->execute([$this->user_name,$this->u_password,$this->u_firstname,$this->u_lastname,$this->role,$this->u_email,$this->u_mobile,$this->u_address,$this->u_profile_pic]);
 
         $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id DESC LIMIT 0,1";
         $stmt = $this->conn->prepare($sqlQuery1);
@@ -85,15 +89,15 @@ class SupplierUsers{
         } else
         {
             $this->sup_id = $dataRow['sup_id'];
-            $this->user_name = $dataRow['edit_user_name'];
-            $this->password = $dataRow['edit_password'];
-            $this->first_name = $dataRow['edit_first_name'];
-            $this->last_name = $dataRow['edit_last_name'];
-            $this->role = $dataRow['edit_role'];
-            $this->email = $dataRow['edit_email'];
-            $this->mobile = $dataRow['edit_mobile'];
-            $this->address = $dataRow['edit_address'];
-            $this->profile_pic = $dataRow['edit_profile_pic'];
+            $this->user_name = $dataRow['user_name'];
+            $this->u_password = $dataRow['u_password'];
+            $this->u_firstname = $dataRow['u_firstname'];
+            $this->u_lastname = $dataRow['u_lastname'];
+            $this->role = $dataRow['role'];
+            $this->u_email = $dataRow['u_email'];
+            $this->u_mobile = $dataRow['u_mobile'];
+            $this->u_address = $dataRow['u_address'];
+            $this->u_profile_pic = $dataRow['u_profile_pic'];
             return $this;
         }
 
