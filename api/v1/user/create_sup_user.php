@@ -27,7 +27,7 @@ if($jwt){
         $item = new supplierUsers($db);
 
         $data = json_decode(file_get_contents("php://input"));
-        $item->sup_id = $_POST['sup_id'];
+        $item->qr_id = $_POST['qr_id'];
         $item->user_name = $_POST['user_name'];
         $item->u_password = $_POST['u_password'];
         $item->u_firstname = $_POST['u_firstname'];
@@ -37,6 +37,10 @@ if($jwt){
         $item->u_mobile = $_POST['u_mobile'];
         $item->u_address = $_POST['u_address'];
         $item->u_profile_pic = $_POST['u_profile_pic'];
+        $item->qr_code = $_POST['qr_code'];
+        $item->qr_pass = $_POST['qr_pass'];
+
+
 
         $sgPos = $item->createSupplierUsers();
 

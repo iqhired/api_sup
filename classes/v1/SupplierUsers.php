@@ -8,6 +8,7 @@ class SupplierUsers{
     private $db_table = "sup_account_users";
     // Columns
     public $sup_id;
+    public $qr_id;
     public $c_id;
     public $user_name;
     public $role;
@@ -20,7 +21,11 @@ class SupplierUsers{
     public $u_profile_pic;
     public $u_type;
     public $u_status;
+    public $qr_code;
     public $delete_check;
+    public $qr_pass;
+
+
 
 
 
@@ -37,10 +42,10 @@ class SupplierUsers{
     public function createSupplierUsers()
     {
 
-        $sqlQuery = "insert into " . $this->db_table . "(user_name,u_password,u_firstname,u_lastname,role,u_email,u_mobile,u_address,u_profile_pic) values (?,?,?,?,?,?,?,?,?)";
+        $sqlQuery = "insert into " . $this->db_table . "(qr_id,user_name,u_password,u_firstname,u_lastname,role,u_email,u_mobile,u_address,u_profile_pic,qr_code,qr_pass) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->conn->prepare($sqlQuery);
-        $stmt->execute([$this->user_name, $this->u_password,$this->u_firstname,$this->u_lastname,$this->role,$this->u_email,$this->u_mobile,$this->u_address,$this->u_profile_pic]);
+        $stmt->execute([$this->qr_id,$this->user_name, $this->u_password,$this->u_firstname,$this->u_lastname,$this->role,$this->u_email,$this->u_mobile,$this->u_address,$this->u_profile_pic,$this->qr_code,$this->qr_pass]);
 
         $sqlQuery1 = "SELECT * FROM " . $this->db_table . " ORDER BY " . $this->db_table. ".sup_id DESC LIMIT 0,1";
         $stmt = $this->conn->prepare($sqlQuery1);
@@ -52,6 +57,7 @@ class SupplierUsers{
         } else {
             $this->sup_id = $dataRow['sup_id'];
             $this->c_id = $dataRow['c_id'];
+            $this->qr_id = $dataRow['qr_id'];
             $this->user_name = $dataRow['user_name'];
             $this->role = $dataRow['role'];
             $this->u_email = $dataRow['u_email'];
@@ -61,6 +67,9 @@ class SupplierUsers{
             $this->u_mobile = $dataRow['u_mobile'];
             $this->u_address = $dataRow['u_address'];
             $this->u_profile_pic = $dataRow['u_profile_pic'];
+            $this->qr_code = $dataRow['qr_code'];
+            $this->qr_pass = $dataRow['qr_pass'];
+
             $this->u_type = $dataRow['u_type'];
             $this->u_status = $dataRow['u_status'];
             return $this;
